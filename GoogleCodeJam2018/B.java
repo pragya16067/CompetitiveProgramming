@@ -3,10 +3,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class A {
+public class B {
+
 	
 	public static void main(String[] args) throws IOException{
 		Reader.init(System.in);
@@ -14,56 +14,14 @@ public class A {
 		PrintWriter writer = new PrintWriter("Output.txt", "UTF-8");
 		int Caseno=1;
 		while(T-- > 0) {
-			int K=Reader.nextInt();
-			int[] Dist=new int[K];
-			int ptr;
-			if(K%2 == 0) //K is even
+			int L= Reader.nextInt();
+			while(L-- > 0)
 			{
-				for(ptr=0; ptr<=K/2-1; ptr++)
-				{
-					Dist[ptr] = ptr;
-				}
-				ptr = K/2;
 				
-				Dist[ptr++] = K/2-1;
-				int val = K/2-1;
-				while(ptr<K)
-				{
-					Dist[ptr] = val-1;
-					ptr++;
-					val--;
-				}
 			}
-			else
-			{
-				for(ptr=0; ptr<=K/2; ptr++)
-				{
-					Dist[ptr] = ptr;
-				}
-				ptr = K/2+1;
-				int val = K/2-1;
-				while(ptr<K)
-				{
-					Dist[ptr] = val;
-					ptr++;
-					val--;
-				}
-			}
-			int[] OptD = new int[K];
-			for(int i=0; i<K; i++)
-			{
-				OptD[i] = Reader.nextInt();
-			}
-			Arrays.sort(OptD);
-			Arrays.sort(Dist);
-			int min=0;
-			for(int i=0; i<K; i++)
-			{
-				min = min + ((OptD[i] - Dist[i]) * (OptD[i] - Dist[i]));
-				//System.out.println((OptD[i] - Dist[i]) * (OptD[i] - Dist[i]));
-			}
-			System.out.println("Case #"+Caseno+": "+min);
-			writer.println("Case #"+Caseno+": "+min);
+			
+			System.out.println("Case #"+Caseno+": ");
+			writer.println("Case #"+Caseno+": ");
 			Caseno++;
 		}
 		
@@ -108,3 +66,4 @@ class Reader {
         return Double.parseDouble( next() );
     }
 }
+
