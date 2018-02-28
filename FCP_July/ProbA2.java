@@ -71,50 +71,43 @@ class GNode {
 	}
 }
 
-
-public class ProbA {
-
-	public static boolean[] Seen;
-	public static int[] Path;
+//Reference: Tutorial on Problem D: Distance in Tree, VK Cup 2012, Codeforces
+public class ProbA2 {
 	
-	public static void dfs(int i, GNode[] l) {
-		Seen[i]=true;
-		GNode u=l[i];
-		while(u.getLink()!=null)
-		{
-			GNode v=u.getLink();
-			int x=v.getData();
-			if(!Seen[x])
-			{
-				Path[x]=i;
-				dfs(x,l);
-			}
-			u=u.getLink();
-		}
-		
-		return;
-	}
+	int dp[][], result;
 	
-	public static boolean isPathK(int V,int K) {
-		ArrayList<Integer> result=new ArrayList<Integer> ();
-		int current=V;
-		do
-		{
-			result.add(current);
-			current=Path[current];
-		}while(current!=-1);
-		
-		if(result.size()-1==K)
-			return true;
-		else 
-			return false;
-	}
+	public void dfs(int vertex, int parent, int k, GNode[] l)
+	  {   
+		    dp[vertex][0] = 1;
+		    GNode v=l[vertex];
+		    while(v.getLink()!=null)
+		    {
+		    	int u=v.getLink().getData();
+		    	if(u != parent) 
+		    	{
+		    		dfs(u, vertex, k,l);
+		    	}
+		    	v=v.getLink();
+		    }
+		    
+		    for(int i = 0; i < k; i++)
+		    {
+		    	result = result + dp[parent][i]*dp[vertex][k-i-1];
+		    }
+		    
+		    for(int i = 1; i <= k; i++)
+		    {
+		    	dp[parent][i] = dp[parent][i] + dp[vertex][i-1];
+		    }   
+	  }
 	
 	public static void main(String[] args) throws IOException{
 		
 		    Reader.init(System.in);
 			int N=Reader.nextInt();
 			int K=Reader.nextInt();
+			ProbA2 obj = new ProbA2();
+	  		obj.dp = new int[N+1][K+1];
 			
 			GNode[] AdjList=new GNode[N+1];
 			for(int i=0; i<N+1;i++)
@@ -140,36 +133,11 @@ public class ProbA {
 				n.display();
 			}*/
 			
-			int result=0;
 			
-			for(int u=1; u<N; u++) {
-				Seen=new boolean[N+1];
-				Path=new int[N+1];
-				
-				
-				dfs(u,AdjList);
-				Path[u]=-1;
-				
-				for(int i=u+1; i<=N; i++)
-				{
-					if(isPathK(i,K))
-					{
-						/*System.out.println(i);
-						for(int i1=0; i1<Path.length; i1++)
-						{
-							System.out.print(Path[i1]+" ");
-						}System.out.println();*/
-						result++;
-					}
-				}
-			}
+			obj.dfs(1, 0, K, AdjList);
 			
-			/*for(int i=0; i<path.size(); i++)
-			{
-				System.out.print(path.get(i)+" ");
-			}System.out.println();*/
-				
-			System.out.println(result);
+			int ans=obj.result;
+			System.out.println(ans);
 				
 			
 		
@@ -212,5 +180,4 @@ class Reader {
         return Double.parseDouble( next() );
     }
 }
-
 
