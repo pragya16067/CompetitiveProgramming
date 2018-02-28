@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,20 +7,19 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-class SUMQ {
+class SUMQ2 {
 	
-	public static int getIndex(int[] X, int start, int rel) {
-		int i;
-		for(i=start; i<X.length; i++)
+	/*public static int f(int x, int y, int z) {
+		if(x<=y && z<=y)
 		{
-			if(X[i]>rel)
-			{
-				return (i-1);
-			}
+			long ans=((x+y)*(y+z));
+			return (int)(ans % 1000000007);
 		}
-		
-		return (i-1);
-	}
+		else
+		{
+			return 0;
+		}
+	}*/
 
 	public static void main(String[] args) throws IOException{
 		Reader.init(System.in);
@@ -39,14 +39,6 @@ class SUMQ {
 				A[i]=Reader.nextInt();
 			}Arrays.sort(A);
 			
-			long[] Asum=new long[Alen];
-			long sum=0;
-			for(int i=0; i<Alen; i++)
-			{
-				sum=(sum+A[i]) % 1000000007 ;
-				Asum[i]=sum;	
-			}
-			
 			for(int i=0; i<Blen; i++)
 			{
 				B[i]=Reader.nextInt();
@@ -57,42 +49,56 @@ class SUMQ {
 				C[i]=Reader.nextInt();
 			}Arrays.sort(C);
 			
-			long[] Csum=new long[Clen];
-			long sumC=0;
-			for(int i=0; i<Clen; i++)
-			{
-				sumC=(sumC+C[i]) % 1000000007;
-				Csum[i]=sumC;	
-			}
-			
-			
+			int x=0;
 			int y=0;
-			int Astart=0;
-			int Cstart=0;
-			long sumfinal=0;
-			
+			int z=0;
+			long sumfinal=0;;
 			for(int i=0; i<Blen; i++)
 			{
 				y=B[i];
 				long sumy=0;
-				
-				int Aindex=getIndex(A,Astart,y);
-				if (Aindex==-1)
+				long sum1=0;
+				long sum2=0;
+				int j=0;
+				int k=0;
+				while(A[j]<=y && C[k]<=y)
 				{
-					Aindex=0;
-					continue;
+					
+					x=A[j];
+					sum1=(sum1+x+y) % 1000000007;
+					z=C[k];
+					sum2=(sum2+z+y) % 1000000007;
+					if(j<A.length-1)
+						j++;
+					else 
+						break;
+					
+					if(k<C.length-1)
+						k++;
+					else 
+						break;
 				}
-				Astart=Aindex;
-				long sum1 = (Asum[Aindex] + (((y % 1000000007)*((Aindex+1) % 1000000007)) % 1000000007)) % 1000000007;
 				
-				int Cindex=getIndex(C,Cstart,y);
-				if (Cindex==-1)
+				while(A[j]<=y)
 				{
-					Cindex=0;
-					continue;
+					
+					x=A[j];
+					sum1=(sum1+x+y) % 1000000007;
+					if(j<A.length-1)
+						j++;
+					else 
+						break;
 				}
-				Cstart=Cindex;
-				long sum2 = (Csum[Cindex] + (((y % 1000000007)*((Cindex+1) % 1000000007))% 1000000007)) % 1000000007;
+				while(C[k]<=y)
+				{
+					
+					z=C[k];
+					sum2=(sum2+z+y) % 1000000007;
+					if(k<C.length-1)
+						k++;
+					else 
+						break;
+				}
 				
 				sumy=(sum1 * sum2) % 1000000007;
 			    sumfinal=(sumfinal+sumy) % 1000000007 ;
@@ -141,4 +147,5 @@ class Reader {
         return Double.parseDouble( next() );
     }
 }
+
 
