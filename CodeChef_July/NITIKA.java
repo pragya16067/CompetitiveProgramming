@@ -5,20 +5,33 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 
-class CALC {
+class NITIKA {
 	
 	public static void main(String[] args) throws IOException{
 		Reader.init(System.in);
 		int T=Reader.nextInt();
 		while(T-- > 0)
 		{
-			long N=Reader.nextLong();
-			long B=Reader.nextLong();
-			long y=N/(2*B);
-			long cal1=(y) * (N-(B*y));
-			y=y+1;
-			long cal2=(y) * (N-(B*y));
-			System.out.println(Math.max(cal1, cal2));
+			String s=Reader.reader.readLine();
+			String[] arr=s.split(" ");
+			if(arr.length==1)
+			{
+				String ln=arr[0];
+				System.out.println((""+ln.charAt(0)).toUpperCase()+ln.substring(1).toLowerCase());
+			}
+			else if(arr.length==2)
+			{
+				String fn=(""+arr[0].charAt(0)).toUpperCase() + ". ";
+				String ln=arr[1];
+				System.out.println(fn+(""+ln.charAt(0)).toUpperCase()+ln.substring(1).toLowerCase());
+			}
+			else
+			{
+				String fn=(""+arr[0].charAt(0)).toUpperCase() + ". ";
+				String mn=(""+arr[1].charAt(0)).toUpperCase() + ". ";
+				String ln=arr[2];
+				System.out.println(fn+mn+(""+ln.charAt(0)).toUpperCase()+ln.substring(1).toLowerCase());
+			}
 		}
 	}
 
@@ -59,4 +72,3 @@ class Reader {
         return Double.parseDouble( next() );
     }
 }
-

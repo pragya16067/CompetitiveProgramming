@@ -5,20 +5,49 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 
-class CALC {
+class CHEFSIGN {
 	
 	public static void main(String[] args) throws IOException{
 		Reader.init(System.in);
 		int T=Reader.nextInt();
 		while(T-- > 0)
 		{
-			long N=Reader.nextLong();
-			long B=Reader.nextLong();
-			long y=N/(2*B);
-			long cal1=(y) * (N-(B*y));
-			y=y+1;
-			long cal2=(y) * (N-(B*y));
-			System.out.println(Math.max(cal1, cal2));
+			String s=Reader.reader.readLine();
+			int max=0;
+			int ptr=0;
+			while(ptr<s.length())
+			{
+				int i=0;
+				if(s.charAt(ptr)=='<')
+				{
+					while(ptr<s.length() && (s.charAt(ptr)=='<' || s.charAt(ptr)=='='))
+					{
+						if(s.charAt(ptr)!='=')
+							i++;
+						ptr++;	
+					}
+					if(i>max)
+						max=i;
+				}
+				else if(s.charAt(ptr)=='>')
+				{
+					while( ptr<s.length() && (s.charAt(ptr)=='>' || s.charAt(ptr)=='='))
+					{
+						if(s.charAt(ptr)!='=')
+							i++;
+						ptr++;
+					}
+					if(i>max)
+						max=i;
+				}
+				else
+				{
+					ptr++;
+				}
+				
+				
+			}
+			System.out.println(max+1);
 		}
 	}
 
@@ -59,4 +88,3 @@ class Reader {
         return Double.parseDouble( next() );
     }
 }
-
